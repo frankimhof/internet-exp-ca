@@ -15,7 +15,7 @@ SIG=$3
 
 case "${SIG}" in
   #check if SIG name valid
-  "prime256v1" | "dilithium2" | "dilithium3" | "dilithium4" | "p256_dilithium2" | "p256_dilithium3" | "p384_dilithium4" | "falcon512" | "falcon1024" | "rainbowIaclassic" | "rainbowVcclassic")
+  "ecdsap256" | "dilithium2" | "dilithium3" | "dilithium4" | "p256_dilithium2" | "p256_dilithium3" | "p384_dilithium4" | "falcon512" | "falcon1024" | "rainbowIaclassic" | "rainbowVcclassic")
     # Check if SIG_CA.crt and SIG_CA.key exist
     if [ ! -f "${SIG}_CA.key" ]; then
       echo ${SIG}_CA.key is missing
