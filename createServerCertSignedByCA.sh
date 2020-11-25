@@ -26,8 +26,7 @@ case "${SIG}" in
       exit
     fi
     if [ ${SIG} == "ecdsap256" ]; then
-      EC_PARAM=$OPENSSL_PATH/apps/openssl ecparam -name prime256v1
-      $OPENSSL_PATH/apps/openssl req -new -newkey ec:${EC_PARAM} -keyout ${SIG}_srv.key -out ${SIG}_srv.csr -nodes -subj "/CN=${2}" -config $OPENSSL_PATH/apps/openssl.cnf
+      $OPENSSL_PATH/apps/openssl req -new -newkey ec:<($OPENSSL_PATH/apps/openssl ecparam -name prime256v1) -keyout ${SIG}_srv.key -out ${SIG}_srv.csr -nodes -subj "/CN=${2}" -config $OPENSSL_PATH/apps/openssl.cnf
       else
       $OPENSSL_PATH/apps/openssl req -new -newkey ${SIG} -keyout ${SIG}_srv.key -out ${SIG}_srv.csr -nodes -subj "/CN=${SERVER_COMMON_NAME}" -config $OPENSSL_PATH/apps/openssl.cnf
     fi
