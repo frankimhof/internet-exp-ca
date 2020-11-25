@@ -23,9 +23,9 @@ OPENSSL_PATH=$1
     fi
 
     echo generating CA.crt and CA.key for SIG ${SIG} with common name ${2:-nginxRootCA}
-    if [ ${SIG} == "prime256v1" ]; then
+    if [ ${SIG} == "ecdsap256" ]; then
       $OPENSSL_PATH/apps/openssl req -x509 -new -newkey ec:<($OPENSSL_PATH/apps/openssl ecparam -name prime256v1) -keyout ${SIG}_CA.key -out ${SIG}_CA.crt -nodes -subj "/CN=nginxRootCA" -days 365 -config $OPENSSL_PATH/apps/openssl.cnf
-      exit
+      else
+      $OPENSSL_PATH/apps/openssl req -x509 -new -newkey ${SIG} -keyout ${SIG}_CA.key -out ${SIG}_CA.crt -nodes -subj "/CN=nginxRootCA" -days 365 -config $OPENSSL_PATH/apps/openssl.cnf
     fi
-    $OPENSSL_PATH/apps/openssl req -x509 -new -newkey ${SIG} -keyout ${SIG}_CA.key -out ${SIG}_CA.crt -nodes -subj "/CN=nginxRootCA" -days 365 -config $OPENSSL_PATH/apps/openssl.cnf
 done
